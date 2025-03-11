@@ -16,6 +16,11 @@
 # Default value is 0 - Note the getter method is atuomatically created
 my_favorite_number: public(uint256)
 
+# Constructor
+@deploy 
+def __init__():
+    self.my_favorite_number = 7 
+
 # Function Definitions
 @external # external decrator to declare the visibility
 def store(new_number: uint256):
@@ -32,9 +37,6 @@ def store(new_number: uint256):
 def retrieve() -> uint256:
     return self.my_favorite_number
 
-# Constructor
-@deploy 
-def __init__():
-    self.my_favorite_number = 7 
+
 
 
