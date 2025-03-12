@@ -30,3 +30,9 @@ def store_func():
 5. Constructor Function in Vyper 
     1. Used for setting state variables such as owner 
     2. Params in the constructor 
+
+6. When deloying a contract the buttons that appear are of different colors 
+    - Blue (No state - Constant or pure functions) - View functions that dont spend gas ,but has execution cost 
+    = Orange (Non payable and update state)- Actual function = Executin Cost + TX cost 
+    -Red (Payable Functions) - Accept values
+        - If other functions calling a view function it will cost gas
