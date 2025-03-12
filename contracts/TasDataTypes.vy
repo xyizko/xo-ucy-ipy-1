@@ -27,7 +27,16 @@ def __init__():
     self.nums[0] = 123 
     self.nums[1] = 456 
 
-    # Mapping 
+    # Mapping - # default is 0 
     self.myMap[msg.sender] = 1
     self.myMap[msg.sender] = 11 
+
+    # Adding variable to struct Person 
+    self.person.name = "tooby"
+    self.person.age = 25
+
+    # Load person into memory 
+    p: Person = self.person 
+    p.name = "Ina"
+    p.age = 22
 
