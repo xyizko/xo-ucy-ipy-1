@@ -14,7 +14,7 @@ interface AggregatorV3Interface:
     def latestAnswer() -> int256: view
 
 # Constants & Immutables
-MINIMUM_USD: public(constant(uint256)) = as_wei_value(5, "ether")
+MINIMUM_USD: public(constant(uint256)) = as_wei_value(1, "ether")
 PRICE_FEED: public(immutable(AggregatorV3Interface)) # 0x694AA1769357215DE4FAC081bf1f309aDC325306 sepolia
 OWNER: public(immutable(address))
 PRECISION: constant(uint256) = 1 * (10 ** 18)
