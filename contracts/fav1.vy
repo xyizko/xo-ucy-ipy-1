@@ -21,6 +21,9 @@ struct Person:
 # Setting a variable called my_name as Struct person 
 my_name: public(String[20])
 
+# hash map - similar to a dictionary - Hashmap and arrays listing
+name_to_fav_num: public(HashMap[String[100], uint256])
+
 
 # Default value is 0 - Note the getter method is atuomatically created
 my_favorite_number: public(uint256)
@@ -64,6 +67,9 @@ def add_person(name: String[100], fav_num: uint256):
     # Add Person to the persons list 
     new_person: Person = Person(fav_num= fav_num, name = name)
     self.list_of_people[self.index] = new_person
+
+    # Add person to hashmap
+    self.name_to_fav_num[name]  = fav_num
     
     self.index = self.index + 1
 
