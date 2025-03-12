@@ -16,6 +16,9 @@
 # Default value is 0 - Note the getter method is atuomatically created
 my_favorite_number: public(uint256)
 
+
+
+
 # Constructor
 @deploy 
 def __init__():
@@ -36,6 +39,8 @@ def store(new_number: uint256):
 @view
 def retrieve() -> uint256:
     return self.my_favorite_number
+
+
 
 
 

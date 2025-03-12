@@ -1,4 +1,4 @@
-# Advanced Functions - S1V16- Advanced Functions with Taz
+# Advanced Functions - S1V16- Advanced Functions with Taz from Programmer Smart 
 # Called external functions - Note that all these functions will have blue button which is some action, which is not read in this case , and will cost gas 
 
 # pragma version ^0.4.0 
