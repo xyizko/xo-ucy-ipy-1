@@ -23,7 +23,7 @@ def fund():
     Allow users to send money to contract 
     - Minimum dollar sent 
     """
-    assert msg.value == as_wei_value(1, "wei"), "Need More Shizzzz" 
+    assert msg.value >= as_wei_value(10, "wei"), "Need More Shizzzz" 
 
 @external
 def withdraw():
