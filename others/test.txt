@@ -1,1 +1,2 @@
 Clone into remix ide , connect git and then push test 
+- Test push 
