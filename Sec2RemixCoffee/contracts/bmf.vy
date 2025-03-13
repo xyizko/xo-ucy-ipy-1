@@ -14,6 +14,12 @@
 
 # --- Actual Functions 
 
+# --- Variables --- 
+
+# my_num: public(uint256)
+
+# --- Function Logic ---
+
 # Function Funding function 
 
 @external
@@ -23,6 +29,7 @@ def fund():
     Allow users to send money to contract 
     - Minimum dollar sent 
     """
+    # self.my_num = self.my_num + 2  
     assert msg.value >= as_wei_value(10, "wei"), "Need More Shizzzz" 
 
 @external
