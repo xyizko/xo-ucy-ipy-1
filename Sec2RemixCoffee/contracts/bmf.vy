@@ -33,6 +33,9 @@ interface AggregatorV3Interface:
 # State Variable 
 price_feed: AggregatorV3Interface # 0x694AA1769357215DE4FAC081bf1f309aDC325306
 
+# Setting the owner of the contract 
+owner: public(address)
+
 
 
 # Function Funding function 
@@ -42,6 +45,7 @@ price_feed: AggregatorV3Interface # 0x694AA1769357215DE4FAC081bf1f309aDC325306
 def __init__(price_feed_address: address):
     self.minUSD = as_wei_value(1, "ether")
     self.price_feed = AggregatorV3Interface(price_feed_address)
+    self.owner = msg.sender
 
 @external
 @payable # Function that hold funds
@@ -58,9 +62,9 @@ def fund():
 @external
 def withdraw():
     """
-
+    Withdrawal of the amount once the contract is funded
     """
-    pass 
+    assert msg.sender == self.owner, "Bastard" 
 
 # --- Conversion Function ---
 
