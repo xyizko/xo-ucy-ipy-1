@@ -16,5 +16,9 @@ def _internal_func():
     - The contract on sepolia eth for getting the current price 
     - Note its a verified contract so you can just read query and get the current price 
 
+4. Calling externally in vyper 
+    - Done with two kw - saticcall and excall 
+    - Since reaching out to another contract is always a security issue
+
 
 
