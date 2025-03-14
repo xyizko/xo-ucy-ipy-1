@@ -40,7 +40,7 @@ price_feed: AggregatorV3Interface # 0x694AA1769357215DE4FAC081bf1f309aDC325306
 # Constructor fnction
 @deploy
 def __init__(price_feed_address: address):
-    self.minUSD = 1
+    self.minUSD = as_wei_value(1, "ether")
     self.price_feed = AggregatorV3Interface(price_feed_address)
 
 @external
@@ -53,7 +53,7 @@ def fund():
     """
     # self.my_num = self.my_num + 2  
     usd_value_of_eth: uint256 = self._get_ethusd_rate(msg.value)
-    assert msg.value >= as_wei_value(1, "wei"), "Need More Shizzzz" 
+    assert usd_value_of_eth >= self.minUSD
 
 @external
 def withdraw():
@@ -74,9 +74,14 @@ def _get_ethusd_rate(eth_amount: uint256) -> uint256:
     eth_price: uint256 = convert(price, uint256) * (10 ** 10)
 
     # Caluclating the eth amount = which woould be price of eth in wei (19 Digits) and the eth_mount (in wei 19 digits), to get the actual cost we hav eto divide by 10e18
-    eth_amt_in_usd: uint256 = (eth_price * eth_amount) // 1 * (10 ** 18)
+    eth_amt_in_usd: uint256 = (eth_price * eth_amount) // (1 * (10 ** 18))
     return eth_amt_in_usd
 
+# Viewing the actual amount
+@external 
+@view 
+def get_eth_usd_rate(eth_amount: uint256) -> uint256:
+    return self._get_ethusd_rate(eth_amount)
     
 
 @external 
