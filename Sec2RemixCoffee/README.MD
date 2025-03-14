@@ -15,3 +15,4 @@ https://github.com/Cyfrin/remix-buy-me-a-coffee-cu
 
 # Notes 
 1. Buy me a coffee contract using vyper 
+2. Oracle problem - Chains cant get data from external sources which would making cnsensus across nodes problematic
