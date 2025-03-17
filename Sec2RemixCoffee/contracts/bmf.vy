@@ -36,7 +36,12 @@ price_feed: AggregatorV3Interface # 0x694AA1769357215DE4FAC081bf1f309aDC325306
 # Setting the owner of the contract 
 owner: public(address)
 
-# dynamic Array 
+# Dynamic Array to keep track of funders
+funders: public(DynArray[address, 100])
+
+# Hashmap to keep track of the funders
+# funder -> how much they funded
+funder_to_amount_funded: public(HashMap[address, uint256])
 
 
 # Keep track of who sent us 
@@ -62,6 +67,8 @@ def fund():
     # self.my_num = self.my_num + 2  
     usd_value_of_eth: uint256 = self._get_ethusd_rate(msg.value)
     assert usd_value_of_eth >= self.minUSD
+    self.funders.append(msg.sender)
+    self.funder_to_amount_funded[msg.sender] += msg.value
 
 @external
 def withdraw():
@@ -69,6 +76,11 @@ def withdraw():
     Withdrawal of the amount once the contract is funded
     """
     assert msg.sender == self.owner, "Bastard" 
+
+    # Resetting
+    self.funders = []
+
+    
 
 # --- Conversion Function ---
 
