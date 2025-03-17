@@ -1,10 +1,15 @@
-# pragma version 0.4.0
-
 """
-@notice - Copy of bmf1 - For lesson 35 onwards 
+BuyMeACoffe.vy - Work - writing in snake_case
+
+--- Project Planning ---
+
+Get Funds from users
+Get Withdraw Funds 
+Set minimum value 
 """
 # --- Contract Header ---
 
+# pragma version 0.4.0
 # @ license: MIT 
 # @ author: Dudo
 
@@ -18,7 +23,7 @@
 
 # Storage Variables are gas constant
 
-MIN_USD: public(constant(uint256)) = as_wei_value(1,"ether")
+minUSD: public(uint256)
 
 # --- Chainlink Aggregator Interface 
 # We'll learn a new way to do interfaces later...
@@ -29,10 +34,10 @@ interface AggregatorV3Interface:
     def latestAnswer() -> int256: view
 
 # State Variable 
-PRICE_FEED: public(immutable(AggregatorV3Interface)) # 0x694AA1769357215DE4FAC081bf1f309aDC325306
+price_feed: AggregatorV3Interface # 0x694AA1769357215DE4FAC081bf1f309aDC325306
 
 # Setting the owner of the contract 
-OWNER: public(immutable(address))
+owner: public(address)
 
 # Dynamic Array to keep track of funders
 funders: public(DynArray[address, 100])
@@ -50,8 +55,9 @@ funder_to_amount_funded: public(HashMap[address, uint256])
 # Constructor fnction
 @deploy
 def __init__(price_feed_address: address):
-    PRICE_FEED = AggregatorV3Interface(price_feed_address)
-    OWNER = msg.sender
+    self.minUSD = as_wei_value(1, "ether")
+    self.price_feed = AggregatorV3Interface(price_feed_address)
+    self.owner = msg.sender
 
 @external
 @payable # Function that hold funds
@@ -63,7 +69,7 @@ def fund():
     """
     # self.my_num = self.my_num + 2  
     usd_value_of_eth: uint256 = self._get_ethusd_rate(msg.value)
-    assert usd_value_of_eth >= MIN_USD
+    assert usd_value_of_eth >= self.minUSD
     self.funders.append(msg.sender)
     self.funder_to_amount_funded[msg.sender] += msg.value
 
@@ -72,7 +78,7 @@ def withdraw():
     """
     Withdrawal of the amount once the contract is funded
     """
-    assert msg.sender == OWNER, "Bastard" 
+    assert msg.sender == self.owner, "Bastard" 
 
     # Resetting
 
@@ -90,7 +96,7 @@ def withdraw():
 @view
 def _get_ethusd_rate(eth_amount: uint256) -> uint256:
     # 0x694AA1769357215DE4FAC081bf1f309aDC325306 - Taken from https://github.com/Cyfrin/moccasin-full-course-cu
-    price: int256 = staticcall PRICE_FEED.latestAnswer() 
+    price: int256 = staticcall self.price_feed.latestAnswer() 
     eth_price: uint256 = convert(price, uint256) * (10 ** 10)
 
     # Caluclating the eth amount = which woould be price of eth in wei (19 Digits) and the eth_mount (in wei 19 digits), to get the actual cost we hav eto divide by 10e18
