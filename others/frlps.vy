@@ -7,7 +7,9 @@
 def for_loop() -> DynArray[uint256,100]:
     arr: DynArray[uint256, 100] = []
 
-    for i: uint256 in range(100):
+    nums: uint256[4] = [11, 22, 33, 44]
+
+    for i: uint256 in nums:
         arr.append(i)
     
     return arr

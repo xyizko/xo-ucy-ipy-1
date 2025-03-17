@@ -78,9 +78,12 @@ def withdraw():
     assert msg.sender == self.owner, "Bastard" 
 
     # Resetting
+
+    for funder: address in self.funders:
+        self.funder_to_amount_funded[funder] = 0
     self.funders = []
 
-    
+
 
 # --- Conversion Function ---
 
