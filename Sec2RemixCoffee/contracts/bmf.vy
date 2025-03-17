@@ -56,9 +56,14 @@ def __init__(price_feed_address: address):
     PRICE_FEED = AggregatorV3Interface(price_feed_address)
     OWNER = msg.sender
 
-@external
-@payable # Function that hold funds
+@external 
+@payable
 def fund():
+    self._fund()
+
+@internal
+@payable # Function that hold funds
+def _fund():
     """
     Allow users to send money to contract 
     - Minimum dollar sent 
@@ -116,3 +121,9 @@ def get_price() -> int256:
     
     price_feed: AggregatorV3Interface = AggregatorV3Interface(priceFeedAddress)
     return staticcall price_feed.latestAnswer()
+
+
+@external 
+@payable 
+def __default__():
+    self._fund()
